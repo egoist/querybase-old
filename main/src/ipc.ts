@@ -1,5 +1,5 @@
 import { ipcMain } from "electron-better-ipc"
-import knex, { Knex } from "knex"
+import { Pool } from "pg"
 import {
   CreateConnection,
   ExecuteQuery,
@@ -7,22 +7,19 @@ import {
   GetTableNames,
 } from "../../shared/types"
 
-let connection: Knex | undefined
+let connection: Pool | undefined
 
 export function listenForRenderer() {
   const createConnection: CreateConnection = async (args) => {
     if (connection) {
-      await connection.destroy()
+      await connection.end()
     }
-    connection = knex({
-      client: "pg",
-      connection: {
-        host: "127.0.0.1",
-        port: 5432,
-        user: "postgres",
-        password: "pass",
-        database: args.name,
-      },
+    connection = new Pool({
+      host: "127.0.0.1",
+      port: 5432,
+      user: "postgres",
+      password: "pass",
+      database: args.name,
     })
 
     return { type: "success", data: void 0 }
@@ -31,7 +28,7 @@ export function listenForRenderer() {
   const getAllDatabases: GetAllDatabases = async () => {
     if (!connection) return { type: "error", error: "No connection" }
 
-    const res = await connection.raw(`SELECT datname FROM pg_database
+    const res = await connection.query(`SELECT datname FROM pg_database
           WHERE datistemplate = false;`)
 
     return { type: "success", data: res.rows.map((row: any) => row.datname) }
@@ -40,7 +37,7 @@ export function listenForRenderer() {
   const executeQuery: ExecuteQuery = async (args) => {
     if (!connection) return { type: "error", error: "No connection" }
 
-    const res = await connection.raw(args.query)
+    const res = await connection.query(args.query)
 
     return {
       type: "success",
@@ -50,7 +47,7 @@ export function listenForRenderer() {
 
   const getTableNames: GetTableNames = async (args) => {
     if (!connection) return { type: "error", error: "No connection" }
-    const res = await connection.raw(
+    const res = await connection.query(
       `SELECT table_name
 FROM information_schema.tables
 WHERE table_schema=?

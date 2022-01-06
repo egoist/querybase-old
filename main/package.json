@@ -8,11 +8,11 @@
     "start": "electron ."
   },
   "dependencies": {
-    "knex": "^0.95.15",
     "pg": "^8.7.1"
   },
   "devDependencies": {
     "@types/pg": "^8.6.3",
-    "electron-better-ipc": "^2.0.1"
+    "electron-better-ipc": "^2.0.1",
+    "tsup": "^5.11.10"
   }
 }
