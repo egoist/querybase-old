@@ -12,6 +12,7 @@ export type QueryBase = {
   getAllDatabases: GetAllDatabases
   createConnection: CreateConnection
   executeQuery: ExecuteQuery
+  getTableNames: GetTableNames
 }
 
 export type GetAllDatabases = () => Promise<QueryResponse<string[]>>
@@ -23,3 +24,7 @@ export type CreateConnection = (args: {
 export type ExecuteQuery = (args: {
   query: string
 }) => Promise<QueryResponse<{ rows: any[]; fields: string[] }>>
+
+export type GetTableNames = (args: {
+  schema: string
+}) => Promise<QueryResponse<string[]>>

@@ -4,6 +4,7 @@ import {
   CreateConnection,
   ExecuteQuery,
   GetAllDatabases,
+  GetTableNames,
 } from "../../shared/types"
 
 let connection: Knex | undefined
@@ -47,7 +48,24 @@ export function listenForRenderer() {
     }
   }
 
+  const getTableNames: GetTableNames = async (args) => {
+    if (!connection) return { type: "error", error: "No connection" }
+    const res = await connection.raw(
+      `SELECT table_name
+FROM information_schema.tables
+WHERE table_schema=?
+ AND table_type='BASE TABLE'`,
+      [args.schema]
+    )
+
+    return {
+      type: "success",
+      data: res.rows.map((row: any) => row.table_name),
+    }
+  }
+
   ipcMain.answerRenderer("create-connection", createConnection)
   ipcMain.answerRenderer("get-all-databases", getAllDatabases)
   ipcMain.answerRenderer("execute-query", executeQuery)
+  ipcMain.answerRenderer("get-table-names", getTableNames)
 }

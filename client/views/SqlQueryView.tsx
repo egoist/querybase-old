@@ -7,7 +7,7 @@ export const SqlQueryView = () => {
 
   const execute = async () => {
     const res = await querybase.executeQuery({ query })
-    console.log(res)
+
     if (res.type === "success") {
       setRows(res.data.rows)
       setFields(res.data.fields)

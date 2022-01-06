@@ -12,6 +12,9 @@ const querybase: QueryBase = {
   executeQuery(args) {
     return ipcRenderer.callMain("execute-query", args) as any
   },
+  getTableNames(args) {
+    return ipcRenderer.callMain("get-table-names", args) as any
+  },
 }
 
 contextBridge.exposeInMainWorld("querybase", querybase)
