@@ -12,7 +12,7 @@ export type QueryBase = {
   getAllDatabases: GetAllDatabases
   createConnection: CreateConnection
   executeQuery: ExecuteQuery
-  getTableNames: GetTableNames
+  getTables: GetTables
   showErrorDialog: ShowErrorDialog
 }
 
@@ -39,9 +39,11 @@ export type ExecuteQuery = (args: {
   query: string
 }) => Promise<QueryResponse<{ rows: any[]; fields: string[] }>>
 
-export type GetTableNames = (args: {
-  schema: string
-}) => Promise<QueryResponse<string[]>>
+export type Table = { name: string; schema: string; type: string }
+
+export type GetTables = () => Promise<
+  QueryResponse<{ tables: Table[]; schemas: string[] }>
+>
 
 export type ShowErrorDialog = (args: {
   title: string

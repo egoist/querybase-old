@@ -12,8 +12,8 @@ const querybase: QueryBase = {
   executeQuery(args) {
     return ipcRenderer.callMain("execute-query", args) as any
   },
-  getTableNames(args) {
-    return ipcRenderer.callMain("get-table-names", args) as any
+  getTables() {
+    return ipcRenderer.callMain("get-tables") as any
   },
   showErrorDialog(args) {
     return ipcRenderer.callMain("show-error-dialog", args) as any

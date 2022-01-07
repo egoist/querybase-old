@@ -1,11 +1,11 @@
-import { BrowserWindow, dialog } from "electron"
+import { dialog } from "electron"
 import { ipcMain } from "electron-better-ipc"
 import { Client } from "pg"
 import {
   CreateConnection,
   ExecuteQuery,
   GetAllDatabases,
-  GetTableNames,
+  GetTables,
   ShowErrorDialog,
 } from "../../shared/types"
 
@@ -66,18 +66,23 @@ export function listenForRenderer() {
     }
   }
 
-  const getTableNames: GetTableNames = async (args) => {
+  const getTables: GetTables = async () => {
     if (!connection) return { type: "error", error: "No connection" }
     const res = await connection.query({
-      text: `SELECT table_name
-       FROM information_schema.tables
-       WHERE table_schema = $1
-       AND table_type = 'BASE TABLE'`,
-      values: [args.schema],
+      text: `SELECT table_name, table_schema, table_type
+       FROM information_schema.tables`,
     })
+    const schemas = [...new Set(res.rows.map((row: any) => row.table_schema))]
     return {
       type: "success",
-      data: res.rows.map((row: any) => row.table_name),
+      data: {
+        tables: res.rows.map((row: any) => ({
+          name: row.table_name,
+          schema: row.table_schema,
+          type: row.table_type,
+        })),
+        schemas,
+      },
     }
   }
 
@@ -88,6 +93,6 @@ export function listenForRenderer() {
   ipcMain.answerRenderer("create-connection", wrapHandler(createConnection))
   ipcMain.answerRenderer("get-all-databases", wrapHandler(getAllDatabases))
   ipcMain.answerRenderer("execute-query", wrapHandler(executeQuery))
-  ipcMain.answerRenderer("get-table-names", wrapHandler(getTableNames))
+  ipcMain.answerRenderer("get-tables", wrapHandler(getTables))
   ipcMain.answerRenderer("show-error-dialog", wrapHandler(showErrorDialog))
 }

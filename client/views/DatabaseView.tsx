@@ -1,16 +1,27 @@
-import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
+import clsx from "clsx"
+import { Table } from "~/../shared/types"
 import { DashboardHeader } from "~/components/DashboardHeader"
 import { Link } from "~/components/Link"
-import { activeConnectionAtom } from "~/lib/atoms"
 
 export const DatabaseView = () => {
-  const [tables, setTables] = useState<string[]>([])
+  const [tables, setTables] = useState<Table[]>([])
+  const [schemas, setSchemas] = useState<string[]>([])
+  const [expandedSchemas, setExpandedSchemas] = useState<string[]>(["public"])
+
+  const toggleSchema = (schema: string) => {
+    if (expandedSchemas.includes(schema)) {
+      setExpandedSchemas(expandedSchemas.filter((s) => s !== schema))
+    } else {
+      setExpandedSchemas([...expandedSchemas, schema])
+    }
+  }
 
   useEffect(() => {
-    querybase.getTableNames({ schema: "public" }).then((res) => {
+    querybase.getTables().then((res) => {
       if (res.type === "success") {
-        setTables(res.data)
+        setTables(res.data.tables)
+        setSchemas(res.data.schemas)
       } else {
         querybase.showErrorDialog({
           title: "Failed to get tables",
@@ -48,35 +59,70 @@ export const DatabaseView = () => {
           <span>SQL Query</span>
         </Link>
       </div>
-      <div className="p-5 table-grid">
-        {tables.sort().map((name) => {
-          return (
-            <div
-              key={name}
-              className="group select-none inline-flex flex-col items-center justify-center space-y-1"
-            >
-              <span className="rounded inline-flex items-center justify-center group-active:bg-zinc-200">
+      {schemas.map((schema) => {
+        return (
+          <div key={schema}>
+            <div className="px-2">
+              <button
+                className="px-3 w-full flex items-center space-x-2 cursor-default active:bg-zinc-200 rounded p-1"
+                type="button"
+                onClick={() => toggleSchema(schema)}
+              >
                 <svg
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="w-16 h-16"
+                  width="1em"
+                  height="1em"
+                  className={clsx(
+                    "mt-[2px] text-zinc-400",
+                    expandedSchemas.includes(schema) ? "rotate-90" : "rotate-0"
+                  )}
+                  viewBox="0 0 20 20"
                 >
-                  <path
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    d="M9 3H3v6h6V3ZM15 3H9v6h6V3ZM21 3h-6v6h6V3ZM9 9H3v6h6V9ZM15 9H9v6h6V9ZM21 9h-6v6h6V9ZM9 15H3v6h6v-6ZM15 15H9v6h6v-6ZM21 15h-6v6h6v-6Z"
-                  />
+                  <g fill="none">
+                    <path
+                      d="M15.795 11.272l-8 5A1.5 1.5 0 0 1 5.5 15V5a1.5 1.5 0 0 1 2.295-1.272l8 5a1.5 1.5 0 0 1 0 2.544z"
+                      fill="currentColor"
+                    ></path>
+                  </g>
                 </svg>
-              </span>
-              <span className="p-1 rounded h-5 inline-flex items-center group-active:text-white group-active:bg-blue-500">
-                {name}
-              </span>
+                <span>{schema}</span>
+              </button>
             </div>
-          )
-        })}
-      </div>
+            {expandedSchemas.includes(schema) && (
+              <div className="p-5 table-grid">
+                {tables
+                  .filter((t) => t.schema === schema)
+                  .sort((a, b) => (a.name > b.name ? 1 : -1))
+                  .map((t) => {
+                    return (
+                      <div
+                        key={t.name}
+                        className="group select-none text-center space-y-1"
+                      >
+                        <span className="rounded block group-active:bg-zinc-200">
+                          <svg
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinejoin="round"
+                              strokeLinecap="round"
+                              stroke="currentColor"
+                              d="M9 3H3v6h6V3ZM15 3H9v6h6V3ZM21 3h-6v6h6V3ZM9 9H3v6h6V9ZM15 9H9v6h6V9ZM21 9h-6v6h6V9ZM9 15H3v6h6v-6ZM15 15H9v6h6v-6ZM21 15h-6v6h6v-6Z"
+                            />
+                          </svg>
+                        </span>
+                        <span className="p-1 py-[1px] break-all rounded inline-flex items-center group-active:text-white group-active:bg-blue-500">
+                          {t.name}
+                        </span>
+                      </div>
+                    )
+                  })}
+              </div>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
