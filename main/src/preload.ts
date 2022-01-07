@@ -15,6 +15,9 @@ const querybase: QueryBase = {
   getTableNames(args) {
     return ipcRenderer.callMain("get-table-names", args) as any
   },
+  showErrorDialog(args) {
+    return ipcRenderer.callMain("show-error-dialog", args) as any
+  },
 }
 
 contextBridge.exposeInMainWorld("querybase", querybase)

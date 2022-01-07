@@ -10,6 +10,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
     width: 800,
+    titleBarStyle: "hiddenInset",
   })
 
   // and load the index.html of the app.

@@ -1,0 +1,38 @@
+.app-region-drag {
+  -webkit-app-region: drag;
+}
+
+.app-region-nodrag {
+  -webkit-app-region: no-drag;
+}
+
+html {
+  font-size: 14px;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(100px, 1fr)
+  ); /* see notes below */
+  grid-gap: 1em;
+}
+
+.button {
+  @apply text-sm;
+  @apply bg-zinc-300 px-3 rounded-lg h-7 inline-flex items-center justify-center w-full;
+  @apply cursor-default;
+  @apply active:bg-blue-500 active:text-white;
+}
+
+.input {
+  @apply rounded focus:outline-none focus:ring-2 ring-blue-500;
+  @apply px-1 bg-white shadow;
+}
+
+.os-button {
+  @apply bg-blue-500 hover:bg-blue-600 text-white;
+  @apply px-3 py-1 rounded-lg cursor-default;
+  @apply inline-flex items-center justify-center;
+}

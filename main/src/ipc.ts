@@ -1,27 +1,48 @@
+import { BrowserWindow, dialog } from "electron"
 import { ipcMain } from "electron-better-ipc"
-import { Pool } from "pg"
+import { Client } from "pg"
 import {
   CreateConnection,
   ExecuteQuery,
   GetAllDatabases,
   GetTableNames,
+  ShowErrorDialog,
 } from "../../shared/types"
 
-let connection: Pool | undefined
+let connection: Client | undefined
+
+const wrapHandler = <T extends Function>(handler: T): T => {
+  // @ts-expect-error
+  return async (args: any) => {
+    try {
+      return await handler(args)
+    } catch (error: any) {
+      console.log("querybase api error", error)
+      return { type: "error", error: error.message }
+    }
+  }
+}
 
 export function listenForRenderer() {
   const createConnection: CreateConnection = async (args) => {
     if (connection) {
       await connection.end()
+      connection = undefined
     }
-    connection = new Pool({
-      host: "127.0.0.1",
-      port: 5432,
-      user: "postgres",
-      password: "pass",
-      database: args.name,
+    if (args.type === "sqlite") {
+      return { type: "error", error: "SQLite is not supported yet" }
+    }
+    connection = new Client({
+      host: args.host,
+      port: args.port,
+      user: args.user,
+      password: args.password,
+      database: args.database,
     })
-
+    await connection.connect().catch((error) => {
+      connection = undefined
+      throw error
+    })
     return { type: "success", data: void 0 }
   }
 
@@ -47,22 +68,26 @@ export function listenForRenderer() {
 
   const getTableNames: GetTableNames = async (args) => {
     if (!connection) return { type: "error", error: "No connection" }
-    const res = await connection.query(
-      `SELECT table_name
-FROM information_schema.tables
-WHERE table_schema=?
- AND table_type='BASE TABLE'`,
-      [args.schema]
-    )
-
+    const res = await connection.query({
+      text: `SELECT table_name
+       FROM information_schema.tables
+       WHERE table_schema = $1
+       AND table_type = 'BASE TABLE'`,
+      values: [args.schema],
+    })
     return {
       type: "success",
       data: res.rows.map((row: any) => row.table_name),
     }
   }
 
-  ipcMain.answerRenderer("create-connection", createConnection)
-  ipcMain.answerRenderer("get-all-databases", getAllDatabases)
-  ipcMain.answerRenderer("execute-query", executeQuery)
-  ipcMain.answerRenderer("get-table-names", getTableNames)
+  const showErrorDialog: ShowErrorDialog = async (args) => {
+    dialog.showErrorBox(args.title, args.content)
+  }
+
+  ipcMain.answerRenderer("create-connection", wrapHandler(createConnection))
+  ipcMain.answerRenderer("get-all-databases", wrapHandler(getAllDatabases))
+  ipcMain.answerRenderer("execute-query", wrapHandler(executeQuery))
+  ipcMain.answerRenderer("get-table-names", wrapHandler(getTableNames))
+  ipcMain.answerRenderer("show-error-dialog", wrapHandler(showErrorDialog))
 }
