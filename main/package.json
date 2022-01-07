@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "main",
+  "version": "1.0.0",
   "main": "./out/index.js",
   "scripts": {
     "dev": "tsup --watch",
@@ -8,9 +9,9 @@
     "start": "electron ."
   },
   "dependencies": {
-    "pg": "^8.7.1"
   },
   "devDependencies": {
+    "pg": "^8.7.1",
     "@types/pg": "^8.6.3",
     "electron-better-ipc": "^2.0.1",
     "tsup": "^5.11.10"

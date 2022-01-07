@@ -4,20 +4,12 @@ import packager from "electron-packager"
 
 async function pack() {
   await packager({
-    dir: path.resolve("main"),
+    dir: path.resolve("app"),
     name: "QueryBase",
     out: "dist",
     overwrite: true,
     platform: ["darwin"],
     arch: ["x64", "arm64"],
-    ignore(p) {
-      if (!p) return false
-      return (
-        !p.includes("node_modules") &&
-        !p.startsWith("/out") &&
-        p !== "/package.json"
-      )
-    },
   })
 }
 

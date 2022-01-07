@@ -11,7 +11,6 @@ export default defineConfig((ctx) => {
     },
     build: {
       outDir: "../main/out/client",
-      emptyOutDir: true,
     },
     resolve: {
       alias: {
