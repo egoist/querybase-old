@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { DashboardHeader } from "~/components/DashboardHeader"
+import { DashboardLayout } from "~/components/DashboardLayout"
 
 export const SqlQueryView = () => {
   const [query, setQuery] = useState("")
@@ -16,8 +17,7 @@ export const SqlQueryView = () => {
   }
 
   return (
-    <div>
-      <DashboardHeader />
+    <DashboardLayout>
       <div className="p-2">
         <textarea
           className="border rounded-lg w-full p-1"
@@ -67,6 +67,6 @@ export const SqlQueryView = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }
