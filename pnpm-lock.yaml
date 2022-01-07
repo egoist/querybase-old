@@ -47,12 +47,12 @@ importers:
       '@types/pg': 8.6.3
       electron-better-ipc: 2.0.1
       pg: 8.7.1
-      tsup: 5.11.10
+      tsup: 5.11.11
     devDependencies:
       '@types/pg': 8.6.3
       electron-better-ipc: 2.0.1
       pg: 8.7.1
-      tsup: 5.11.10_typescript@4.5.4
+      tsup: 5.11.11_typescript@4.5.4
 
 packages:
 
@@ -3320,8 +3320,8 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
 
-  /tsup/5.11.10_typescript@4.5.4:
-    resolution: {integrity: sha512-z8YzbPyF8Vvj37h+TY84AfvlmKZtBTRuWwRETWUbfckMj854WeLkuRQV8vRyoY8bLJQhnKWlLge/3fVbFZGERg==}
+  /tsup/5.11.11_typescript@4.5.4:
+    resolution: {integrity: sha512-rgbTu+KhAI9PdGUS07rKohDXbRLTstBGJaxl75q7RZYRGF+n+kN8L4RlXY5pqYb9Hsq0gEB6nS39v7nSvVBS+g==}
     hasBin: true
     peerDependencies:
       typescript: ^4.1.0
