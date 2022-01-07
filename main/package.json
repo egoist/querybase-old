@@ -11,9 +11,9 @@
   "dependencies": {
   },
   "devDependencies": {
-    "pg": "^8.7.1",
-    "@types/pg": "^8.6.3",
-    "electron-better-ipc": "^2.0.1",
-    "tsup": "^5.11.10"
+    "pg": "8.7.1",
+    "@types/pg": "8.6.3",
+    "electron-better-ipc": "2.0.1",
+    "tsup": "5.11.10"
   }
 }
