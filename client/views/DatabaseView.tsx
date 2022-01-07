@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import clsx from "clsx"
-import { Table } from "~/../shared/types"
 import { Link } from "~/components/Link"
 import { DashboardLayout } from "~/components/DashboardLayout"
+import { useAtom } from "jotai"
+import { schemasAtom, tablesAtom } from "~/lib/atoms"
+import { useRouter } from "~/hooks/useRouter"
 
 export const DatabaseView = () => {
-  const [tables, setTables] = useState<Table[]>([])
-  const [schemas, setSchemas] = useState<string[]>([])
+  const router = useRouter()
+  const [tables, setTables] = useAtom(tablesAtom)
+  const [schemas, setSchemas] = useAtom(schemasAtom)
   const [expandedSchemas, setExpandedSchemas] = useState<string[]>(["public"])
 
   const toggleSchema = (schema: string) => {
@@ -99,6 +102,9 @@ export const DatabaseView = () => {
                         <div
                           key={t.name}
                           className="group select-none text-center space-y-1"
+                          onClick={() => {
+                            router.push(`/table`, { name: t.name })
+                          }}
                         >
                           <span className="rounded block group-active:bg-zinc-200">
                             <svg
