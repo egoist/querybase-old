@@ -25,7 +25,7 @@ importers:
       preact: 10.6.4
       react: 17.0.2
       react-dom: 17.0.2
-      tailwindcss: 3.0.11
+      tailwindcss: 3.0.12
       vite: 2.7.10
       vite-tsconfig-paths: 3.3.17
     devDependencies:
@@ -38,7 +38,7 @@ importers:
       preact: 10.6.4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      tailwindcss: 3.0.11
+      tailwindcss: 3.0.12
       vite: 2.7.10
       vite-tsconfig-paths: 3.3.17_vite@2.7.10
 
@@ -3196,8 +3196,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tailwindcss/3.0.11:
-    resolution: {integrity: sha512-JyMsQ2kPqpOvG8ow535XpauXj3wz3nQqcy2tVlXj4FQ0eNlsdzvlAqpRA3q5rPLboWirNG6r2DqKczwjW2uc8Q==}
+  /tailwindcss/3.0.12:
+    resolution: {integrity: sha512-VqhF86z2c34sJyS5ZS8Q2nYuN0KzqZw1GGsuQQO9kJ3mY1oG7Fsag0vICkxUVXk6P+1sUkTkjMjKWCjEF0hNHw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
