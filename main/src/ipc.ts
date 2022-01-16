@@ -1,5 +1,4 @@
-import { dialog } from "electron"
-import { ipcMain } from "electron-better-ipc"
+import { dialog, ipcMain } from "electron"
 import { Client } from "pg"
 import {
   CreateConnection,
@@ -11,9 +10,8 @@ import {
 
 let connection: Client | undefined
 
-const wrapHandler = <T extends Function>(handler: T): T => {
-  // @ts-expect-error
-  return async (args: any) => {
+const wrapHandler = (handler: (args: any) => Promise<any>) => {
+  return async (event: any, args: any) => {
     try {
       return await handler(args)
     } catch (error: any) {
@@ -47,7 +45,7 @@ export function listenForRenderer() {
   }
 
   const getAllDatabases: GetAllDatabases = async () => {
-    if (!connection) return { type: "error", error: "No connection" }
+    if (!connection) throw new Error("No connection")
 
     const res = await connection.query(`SELECT datname FROM pg_database
           WHERE datistemplate = false;`)
@@ -56,7 +54,7 @@ export function listenForRenderer() {
   }
 
   const executeQuery: ExecuteQuery = async (args) => {
-    if (!connection) return { type: "error", error: "No connection" }
+    if (!connection) throw new Error("No connection")
 
     const res = await connection.query(args.query)
 
@@ -67,7 +65,7 @@ export function listenForRenderer() {
   }
 
   const getTables: GetTables = async () => {
-    if (!connection) return { type: "error", error: "No connection" }
+    if (!connection) throw new Error("No connection")
     const res = await connection.query({
       text: `SELECT table_name, table_schema, table_type
        FROM information_schema.tables`,
@@ -90,9 +88,9 @@ export function listenForRenderer() {
     dialog.showErrorBox(args.title, args.content)
   }
 
-  ipcMain.answerRenderer("create-connection", wrapHandler(createConnection))
-  ipcMain.answerRenderer("get-all-databases", wrapHandler(getAllDatabases))
-  ipcMain.answerRenderer("execute-query", wrapHandler(executeQuery))
-  ipcMain.answerRenderer("get-tables", wrapHandler(getTables))
-  ipcMain.answerRenderer("show-error-dialog", wrapHandler(showErrorDialog))
+  ipcMain.handle("create-connection", wrapHandler(createConnection))
+  ipcMain.handle("get-all-databases", wrapHandler(getAllDatabases))
+  ipcMain.handle("execute-query", wrapHandler(executeQuery))
+  ipcMain.handle("get-tables", wrapHandler(getTables))
+  ipcMain.handle("show-error-dialog", wrapHandler(showErrorDialog))
 }

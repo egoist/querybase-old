@@ -1,22 +1,21 @@
-import { contextBridge } from "electron"
-import { ipcRenderer } from "electron-better-ipc"
+import { contextBridge, ipcRenderer } from "electron"
 import { QueryBase } from "../../shared/types"
 
 const querybase: QueryBase = {
   createConnection(args) {
-    return ipcRenderer.callMain("create-connection", args) as any
+    return ipcRenderer.invoke("create-connection", args)
   },
   getAllDatabases() {
-    return ipcRenderer.callMain("get-all-databases") as any
+    return ipcRenderer.invoke("get-all-databases")
   },
   executeQuery(args) {
-    return ipcRenderer.callMain("execute-query", args) as any
+    return ipcRenderer.invoke("execute-query", args)
   },
   getTables() {
-    return ipcRenderer.callMain("get-tables") as any
+    return ipcRenderer.invoke("get-tables")
   },
   showErrorDialog(args) {
-    return ipcRenderer.callMain("show-error-dialog", args) as any
+    return ipcRenderer.invoke("show-error-dialog", args)
   },
 }
 
