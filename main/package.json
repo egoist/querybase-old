@@ -10,8 +10,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "pg": "8.7.1",
-    "@types/pg": "8.6.3",
+    "pg": "8.7.3",
+    "@types/pg": "8.6.5",
     "tsup": "5.11.11"
   }
 }
