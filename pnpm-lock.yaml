@@ -44,12 +44,12 @@ importers:
 
   main:
     specifiers:
-      '@types/pg': 8.6.3
-      pg: 8.7.1
+      '@types/pg': 8.6.5
+      pg: 8.7.3
       tsup: 5.11.11
     devDependencies:
-      '@types/pg': 8.6.3
-      pg: 8.7.1
+      '@types/pg': 8.6.5
+      pg: 8.7.3
       tsup: 5.11.11_typescript@4.5.4
 
 packages:
@@ -428,8 +428,8 @@ packages:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
 
-  /@types/pg/8.6.3:
-    resolution: {integrity: sha512-P0RrXJcw1hPS+KF0nBCC3FEEdZBfRsHbYtAzbY2QTc0gC4jFQvjQxIKXs0X/NgPhPI4DbAzdeW7WMCjaWjT7Pg==}
+  /@types/pg/8.6.5:
+    resolution: {integrity: sha512-tOkGtAqRVkHa/PVZicq67zuujI4Oorfglsr2IbKofDwBSysnaqSx7W1mDqFqdkGE6Fbgh+PZAl0r/BWON/mozw==}
     dependencies:
       '@types/node': 14.18.5
       pg-protocol: 1.5.0
@@ -2581,12 +2581,12 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: true
 
-  /pg-pool/3.4.1_pg@8.7.1:
-    resolution: {integrity: sha512-TVHxR/gf3MeJRvchgNHxsYsTCHQ+4wm3VIHSS19z8NC0+gioEhq1okDY1sm/TYbfoP6JLFx01s0ShvZ3puP/iQ==}
+  /pg-pool/3.5.1_pg@8.7.3:
+    resolution: {integrity: sha512-6iCR0wVrro6OOHFsyavV+i6KYL4lVNyYAB9RD18w66xSzN+d8b66HiwuP30Gp1SH5O9T82fckkzsRjlrhD0ioQ==}
     peerDependencies:
       pg: '>=8.0'
     dependencies:
-      pg: 8.7.1
+      pg: 8.7.3
     dev: true
 
   /pg-protocol/1.5.0:
@@ -2604,8 +2604,8 @@ packages:
       postgres-interval: 1.2.0
     dev: true
 
-  /pg/8.7.1:
-    resolution: {integrity: sha512-7bdYcv7V6U3KAtWjpQJJBww0UEsWuh4yQ/EjNf2HeO/NnvKjpvhEIe/A/TleP6wtmSKnUnghs5A9jUoK6iDdkA==}
+  /pg/8.7.3:
+    resolution: {integrity: sha512-HPmH4GH4H3AOprDJOazoIcpI49XFsHCe8xlrjHkWiapdbHK+HLtbm/GQzXYAZwmPju/kzKhjaSfMACG+8cgJcw==}
     engines: {node: '>= 8.0.0'}
     peerDependencies:
       pg-native: '>=2.0.0'
@@ -2616,7 +2616,7 @@ packages:
       buffer-writer: 2.0.0
       packet-reader: 1.0.0
       pg-connection-string: 2.5.0
-      pg-pool: 3.4.1_pg@8.7.1
+      pg-pool: 3.5.1_pg@8.7.3
       pg-protocol: 1.5.0
       pg-types: 2.2.0
       pgpass: 1.0.5
