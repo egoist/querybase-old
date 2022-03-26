@@ -5,12 +5,12 @@ importers:
   .:
     specifiers:
       '@vercel/nft': 0.17.2
-      electron: 16.0.6
+      electron: 17.2.0
       electron-packager: 15.4.0
       typescript: 4.5.4
     devDependencies:
       '@vercel/nft': 0.17.2
-      electron: 16.0.6
+      electron: 17.2.0
       electron-packager: 15.4.0
       typescript: 4.5.4
 
@@ -1085,8 +1085,8 @@ packages:
     resolution: {integrity: sha512-MbLlbF39vKrXWlFEFpCgDHwdlz4O3LmHM5W4tiLRHjSmEUXjJjz8sZkMgWgvYxlZw3N1iDTmCEtOkkESb5TMCg==}
     dev: true
 
-  /electron/16.0.6:
-    resolution: {integrity: sha512-Xs9dYLYhcJf3wXn8m2gDqFTb1L862KEhMxOx9swfFBHj6NoUPPtUgw/RyPQ0tXN1XPxG9vnBkoI0BdcKwrLKuQ==}
+  /electron/17.2.0:
+    resolution: {integrity: sha512-eNXhPVEUofkgAeqRFvTizzYecoCMyS0Rar08WZHSAw9wjfZXawYMvTpjjjk9GiX9W/+Cjxua4YtGn5bOTabc0A==}
     engines: {node: '>= 8.6'}
     hasBin: true
     requiresBuild: true
