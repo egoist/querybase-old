@@ -12,6 +12,6 @@
   "devDependencies": {
     "pg": "8.7.1",
     "@types/pg": "8.6.3",
-    "tsup": "5.11.11"
+    "tsup": "5.12.9"
   }
 }
