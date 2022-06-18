@@ -21,7 +21,7 @@ importers:
       '@vitejs/plugin-react': 1.1.4
       clsx: 1.1.1
       formik: 2.2.9
-      jotai: 1.5.0
+      jotai: 1.7.2
       preact: 10.6.4
       react: 17.0.2
       react-dom: 17.0.2
@@ -34,7 +34,7 @@ importers:
       '@vitejs/plugin-react': 1.1.4
       clsx: 1.1.1
       formik: 2.2.9_react@17.0.2
-      jotai: 1.5.0_react@17.0.2
+      jotai: 1.7.2_react@17.0.2
       preact: 10.6.4
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -224,6 +224,8 @@ packages:
     resolution: {integrity: sha512-sR4eaSrnM7BV7QPzGfEX5paG/6wrZM3I0HDzfIAK06ESvo9oy3xBuVBxE3MbQaKNhvg8g/ixjMWo2CGpzpHsDA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.16.7
     dev: true
 
   /@babel/plugin-syntax-jsx/7.16.7_@babel+core@7.16.7:
@@ -415,6 +417,12 @@ packages:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: true
 
+  /@types/keyv/3.1.4:
+    resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
+    dependencies:
+      '@types/node': 14.18.5
+    dev: true
+
   /@types/minimatch/3.0.5:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
     dev: true
@@ -452,6 +460,12 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.10
+    dev: true
+
+  /@types/responselike/1.0.0:
+    resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
+    dependencies:
+      '@types/node': 14.18.5
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -932,12 +946,22 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
     dev: true
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.1.2
     dev: true
@@ -1052,6 +1076,8 @@ packages:
       isbinaryfile: 3.0.3
       minimist: 1.2.5
       plist: 3.0.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /electron-packager/15.4.0:
@@ -1506,6 +1532,8 @@ packages:
       debug: 2.6.9
       mkdirp: 0.5.5
       yauzl: 2.10.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /extract-zip/2.0.1:
@@ -1718,6 +1746,8 @@ packages:
       debug: 2.6.9
       lodash.get: 4.4.2
       read-pkg-up: 2.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /get-stream/4.1.0:
@@ -1829,6 +1859,8 @@ packages:
     dependencies:
       '@sindresorhus/is': 0.14.0
       '@szmarczak/http-timer': 1.1.2
+      '@types/keyv': 3.1.4
+      '@types/responselike': 1.0.0
       cacheable-request: 6.1.0
       decompress-response: 3.3.0
       duplexer3: 0.1.4
@@ -2014,8 +2046,8 @@ packages:
     resolution: {integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=}
     dev: true
 
-  /jotai/1.5.0_react@17.0.2:
-    resolution: {integrity: sha512-fR8kLAAgkh/3tFD/eCNhhF2eWYinqeU6TAIDWlLccUFihhhcmbQs1FHkTTAFZXoq9UM9fsLqMqk54jffMKVC5Q==}
+  /jotai/1.7.2_react@17.0.2:
+    resolution: {integrity: sha512-ksvpW1Wu+/HwW1iDYq23PpXLu2df5Vv+eWw70jRAx7IEY4c+qRsORULnqPFurSy/X8LSoPcRhVDJx/cyf8jjMg==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -2305,6 +2337,8 @@ packages:
       debug: 3.2.7
       iconv-lite: 0.4.24
       sax: 1.2.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /node-fetch/2.6.6:
@@ -2334,6 +2368,8 @@ packages:
       rimraf: 2.7.1
       semver: 5.7.1
       tar: 4.4.19
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /node-releases/2.0.1:
