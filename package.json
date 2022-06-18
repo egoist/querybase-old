@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@vercel/nft": "0.17.2",
-    "electron": "16.0.6",
+    "electron": "16.2.6",
     "electron-packager": "15.4.0",
     "typescript": "4.5.4"
   }
